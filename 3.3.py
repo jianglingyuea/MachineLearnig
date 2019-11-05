@@ -5,10 +5,10 @@ from sklearn.model_selection import train_test_split
 def sigmoid(z):
     return 1 / (1+np.exp(-z))
 
-def logistic_regression(theta, x, y, iteration, alpha, lmbd):
+def logistic_regression(theta, x, y, iteration, alpha):
     for i in range(iteration):
-        theta = theta - alpha*(np.dot(x.transpose(), (sigmoid(np.dot(x, theta))-y)) + lmbd*theta)/y.shape[0]
-        cost = -1/y.shape[0] * (np.dot(y.transpose(), np.log(sigmoid(np.dot(x, theta)))) + np.dot((1-y).transpose(), np.log(1-sigmoid(np.dot(x, theta))))) + lmbd/(2*y.shape[0])*np.dot(theta.transpose(), theta)
+        theta = theta - alpha*(np.dot(x.transpose(), (sigmoid(np.dot(x, theta))-y)) )/y.shape[0]
+        cost = -1/y.shape[0] * (np.dot(y.transpose(), np.log(sigmoid(np.dot(x, theta)))) + np.dot((1-y).transpose(), np.log(1-sigmoid(np.dot(x, theta)))))
         print(f'Iteration: {i}, cost: {cost}')
     return theta
 
@@ -32,7 +32,7 @@ def main():
     xtrain,xtest,ytrain,ytest=train_test_split(xtrain,ytrain,test_size=0.25,random_state=33)
 
     theta_init=np.random.rand(3,1)
-    theta=logistic_regression(theta_init, xtrain, ytrain,200, 0.5, 0.01)
+    theta=logistic_regression(theta_init, xtrain, ytrain,200, 0.5)
     pred = predict(theta, xtest)
     print('predictions are',pred)
     print('ground truth is',ytest)
