@@ -17,9 +17,9 @@
 
 将tensorflow2.0深度学习一书从第一章学习到第十章结束，手写了其中大部分的代码。包括手写神经网络的求导、正向传播、反向传播等过程，线性回归、逻辑回归问题，MPG预测，以及tensorflow2.0和keras的新的特性。与图像结合比较紧密的是LeNet5，VGG13, ResNet18的手写实现，且以在本地跑通，**代码上传到了github上,在根目录的tensorflow2.0_study文件夹下**。
 
-在论文方面了解了一些超分辨率有关的东西，大致知道了一些超分辨率的算法，这些算法也是我之后学习的方向。并着重看了SRGAN的文章（**Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network**）,这篇文章将我前一段时间学习的GAN，ResNet，VGG结合在了一起，我对这篇文章做了一些笔记做了一些笔记，同时上传到github中。
+在论文方面了解了一些超分辨率有关的东西，大致知道了一些超分辨率的算法，这些算法也是我之后学习的方向。并着重看了SRGAN的文章（**Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network**）,这篇文章将我前一段时间学习的GAN，ResNet，VGG结合在了一起，我对这篇文章做了一些笔记做了一些笔记，**同时上传到github中，在根目录的PaperNote文件夹下。**
 
-这篇论文的核心是批评传统的MSE作为loss的一些监督学习的方法，用MSE作loss的方法容易使图片变得过于顺滑，失去了边缘的一些信息以及高频的信息。此外，作者改进了两点，**一是loss函数的改进，改成了content loss和adversial loss的和，其中content loss也不再使用MSE而是使用训练好的VGG网络得到特征进行pixel-wise的对比得到loss**，**二是对GAN本身的改进，将深度ResNet融入到generator的训练之中**，以期获得更好的结果。
+这篇论文的核心是批评传统的MSE作为loss的一些监督学习的方法，用MSE作loss的方法容易使图片变得过于顺滑，失去了边缘的一些信息以及高频的信息。此外，作者改进了两点，**一是loss函数的改进，改成了content loss和adversial loss的和，其中content loss也不再使用MSE而是使用训练好的VGG网络得到特征进行pixel-wise的对比得到loss**，**二是对GAN本身的改进，将深度ResNet融入到generator的训练之中**，此外还有一些小的细节，如BN层，训练filters等等，以期获得更好的结果。
 
 在学习过程中记录了一些知识或是一些关键的内容：
 
