@@ -11,6 +11,131 @@
 每天至少三小时，尽量达到四小时以上，少的时间要尽快补上
 		
 		
+## 2020.1.23 fixed
+
+主要进行代码方面的练习，顺便巩固了基础知识。
+
+将tensorflow2.0深度学习一书从第一章学习到第十章结束，手写了其中大部分的代码。包括手写神经网络的求导、正向传播、反向传播等过程，线性回归、逻辑回归问题，MPG预测，以及tensorflow2.0和keras的新的特性。与图像结合比较紧密的是LeNet5，VGG13, ResNet18的手写实现，且以在本地跑通，代码上传到了github上。
+
+在论文方面了解了一些超分辨率有关的东西，大致知道了一些超分辨率的算法，这些算法也是我之后学习的方向。并着重看了SRGAN的文章（**Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network**）,这篇文章将我前一段时间学习的GAN，ResNet，VGG结合在了一起，我对这篇文章做了一些笔记做了一些笔记，同时上传到github中。
+
+这篇论文的核心是批评传统的MSE作为loss的一些监督学习的方法，用MSE作loss的方法容易使图片变得过于顺滑，失去了边缘的一些信息以及高频的信息。此外，作者改进了两点，**一是loss函数的改进，改成了content loss和adversial loss的和，其中content loss也不再使用MSE而是使用训练好的VGG网络得到特征进行pixel-wise的对比得到loss**，**二是对GAN本身的改进，将深度ResNet融入到generator的训练之中**，以期获得更好的结果。
+
+在学习过程中记录了一些知识或是一些关键的内容：
+
+## 反卷积
+
+转置卷积具有“放大特征图”的功能，在生成对抗网络、语义分割等中得到了广泛应
+用，如 DCGAN (Radford, Metz, & Chintala, 2015)中的生成器通过堆叠转置卷积层实现逐层
+“放大”特征图，最后获得十分逼真的生成图片。  
+
+![DCGAN](https://img-blog.csdnimg.cn/20181116100629968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTk0Mzgw,size_16,color_FFFFFF,t_70)
+
+
+
+从上图中可以看到，生成器G 将一个100 维的噪音向量扩展成64 * 64 * 3 的矩阵输出，整个过程采用的是微步卷积的方式。作者在文中将其称为fractionally-strided convolutions，并特意强调不是deconvolutions。
+
+上采样和去卷积是同一个概念，它的目的是将经过池化层以后缩小的矩阵扩大到一定的大小，比如说从3 * 3 扩大到5 * 5，如下图所示：
+
+![](https://img-blog.csdnimg.cn/20181116101659698.png)
+
+而去卷积（链接：[反卷积](https://www.cnblogs.com/cvtoEyes/p/8513958.html)）又包含转置卷积和微步卷积，两者的区别在于padding 的方式不同，看看下面这张图片就可以明白了：
+
+<img src="https://img-blog.csdnimg.cn/20181116101941102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTk0Mzgw,size_16,color_FFFFFF,t_70" style="zoom:40%;" />
+
+
+
+代码如下：
+
+```python
+In [14]:
+# 创建 4x4 大小的输入
+x = tf.range(16)+1
+x = tf.reshape(x,[1,4,4,1])
+x = tf.cast(x, tf.float32)
+# 创建 3x3 卷积核
+w = tf.constant([[-1,2,-3.],[4,-5,6],[-7,8,-9]])
+w = tf.expand_dims(w,axis=2)
+w = tf.expand_dims(w,axis=3)
+# 普通卷积运算
+out = tf.nn.conv2d(x,w,strides=1,padding='VALID')
+Out[14]:
+<tf.Tensor: id=42, shape=(2, 2), dtype=float32, numpy=
+array([[-56., -61.],
+[-76., -81.]], dtype=float32)>
+In [15]: # 恢复 4x4 大小的输入
+xx = tf.nn.conv2d_transpose(out, w, strides=1, padding='VALID',
+output_shape=[1,4,4,1])
+tf.squeeze(xx)
+tf.squeeze(xx)
+Out[15]:
+<tf.Tensor: id=44, shape=(4, 4), dtype=float32, numpy=
+array([[ 56., -51., 46., 183.],
+[-148., -35., 35., -123.],
+[ 88., 35., -35., 63.],
+[ 532., -41., 36., 729.]], dtype=float32)>
+```
+
+
+
+
+
+## BatchNorm
+
+BN的基本思想其实相当直观：因为深层神经网络在做非线性变换前的激活输入值（就是那个x=WU+B，U是输入）随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这导致后向传播时低层神经网络的梯度消失，这是训练深层神经网络收敛越来越慢的本质原因，而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正太分布而不是萝莉分布（哦，是正态分布），其实就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。
+
+
+
+## DenseNet
+
+Skip Connection 的思想在 ResNet 上面获得了巨大的成功，研究人员开始尝试不同的Skip Connection 方案，其中比较流行的就是 DenseNet (Huang, Liu, & Weinberger, 2016)。DenseNet 将前面所有层的特征图信息通过 Skip Connection 与当前层输出进行聚合，与ResNet 的对应位置相加不同， DenseNet 采用在通道轴 c 维度进行拼接操作， 聚合特征信息 。
+
+输入𝑥0通过H1卷积层得到输出𝑥1， 𝑥1与𝑥0在通道轴上进行拼接，得到聚合后的特征张量，送入H2卷积层，得到输出𝑥2，同样的方法， 𝑥2与前面所有层的特征信息: 𝑥1与𝑥0进行聚合，再送入下一层。如此循环，直至最后一层的输出𝑥4和前面所有层的特征信息： {𝑥𝑖}𝑖=0 1 2 3进行聚合得到模块的最终输出。这样一种基于 Skip Connection 稠密连接的模块叫做 Dense Block。  
+
+<img src="https://img2018.cnblogs.com/blog/1503464/201812/1503464-20181227214438618-515355109.png" style="zoom: 50%;" />
+
+
+
+## SRGAN
+
+SRGAN的网络结构如图所示：
+
+![](https://img-blog.csdn.net/20171204161954958)
+
+该研究中的损失函数可分为两个部分：对抗损失（adversarial loss ）和内容损失（content loss）。在较高层面上，对抗损失使图像看起来更自然；内容损失则保证重建图像与低分辨率原始图像有相似的特点。其中，对抗损失和传统的 GANs 应用类似，创新的是内容损失。该研究中的内容损失，可被看作为重建的高分辨率图像和原始高分图像之间特征图（feature map）的欧式距离（Euclidean distance）损失。而 GAN 的损失函数是对抗损失和内容损失的加权和。
+
+![](https://img-blog.csdnimg.cn/20190311205919166.png)
+
+其中content loss有两种可选，一种是传统的MSE，一种是VGG19的loss。
+
+而adversarial loss是：
+$$
+l_{Gen}^{SR}=\sum ^{N}_{n=1}-\log D_{\theta _{d}}\times \left( G_{\theta _{G}}\left( I^{u^{2}}\right) \right)
+$$
+这个式子代表了重构的图片是真实的高分辨率图片的概率。
+
+为了更好的梯度表现，我们最小化上面的式子而不是最小化log(1-D(G(I)))
+
+### 训练步骤：
+
+1.使用MSEloss预训练一个生成器
+
+2.正式开始训练SRGAN，将各级loss清零,初始化label，并分别为真假label赋值
+
+3.第一遍G生成图和真图一起输入D，然后在D中进行判别，训练D
+
+4.再次训练G，循环往复
+
+
+
+
+
+
+
+
+
+
+
 ## 2019.12.8 fixed
 
 ### GAN：
