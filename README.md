@@ -10,10 +10,14 @@
 
 每天至少三小时，尽量达到四小时以上，少的时间要尽快补上
 		
-		
+
+### 不知道为readme里的图片都不显示了，需要开全局代理，latex公式也无法显示。。需要在本地用类似Typora的软件打开才能全部正常显示。
+
+​		
+
 ## 2020.2.3 fixed
 
-代码部分，继续之前的tensorflow2.0深度学习一书，完成了第十一章和第十二章，分别是循环神经网络和自编码器。学习了各种循环神经网络以及各种自编码器的原理，完成了LSTM/GRU在IMDB数据集上的语义分析，Auto-encoder以及VAE。**代码上传到了github上,在根目录的tensorflow2.0_study文件夹下**。
+代码部分，继续之前的tensorflow2.0深度学习一书，完成了第十一章和第十二章，分别是循环神经网络和自编码器。学习了各种循环神经网络以及各种自编码器的原理，完成了LSTM/GRU在IMDB数据集上的语义分析，Auto-encoder以及VAE。其中关于VAE的数学推导比较复杂，我手推了一遍，**代码上传到了github上,在根目录的tensorflow2.0_study文件夹下，VAE的推导上传到了根目录的Noncoding_homework下**。
 
 
 
@@ -21,7 +25,7 @@
 
 
 
-![](https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/AefvpgiaIPw0J5I0r2dDkx32pMvNKkZlhklpQF5oO5ia0icISqpnMcqrXDsIXPY0XXml6qS3L06mvJwKZVEjv8ylQ/640?wx_fmt=png)
+![](https://img-blog.csdnimg.cn/20200204005839174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDgyNzE5,size_16,color_FFFFFF,t_70)
 
 本周主要学习了半监督学习的GNN，GCN，以及无监督学习的Auto-encoders和VAE。
 
@@ -80,7 +84,7 @@ $𝐱_𝑐𝑜[𝑣]$指的是与结点v相邻的边的特征，$𝐱_𝑛𝑒[�
 
 我们还需要另外一个函数 g 来描述如何适应下游任务。
 $$
-𝐨_𝑣=𝑔(𝐡_𝑣,𝐱_𝑣)
+𝐨_𝑣=𝑔(𝐡_𝑣,𝐱_𝑣)
 $$
 在原论文中，g 又被称为**局部输出函数**(local output function)，与 ff类似，gg也可以由一个神经网络来表达，它也是一个全局共享的函数。
 
