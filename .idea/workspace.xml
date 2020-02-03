@@ -2,30 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f6c62d6-967a-4b31-8708-2f2ea395737b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/Autograd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/Classification.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/GPUTest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/Lenet5.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/LinearRegression.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/MPG.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/Neuralnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/Test.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/VGG13.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/conv.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/datasetLoad.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/differential.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/keras.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/keras_mnist.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/overfit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/pandatest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/resnet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/resnet_train.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/tfbase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MachineLearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MachineLearning.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/LSTM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/VAE.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tensorflow2.0_study/autoencoder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +58,7 @@
       <recent name="E:\Programming\MachineLearning\Tensorflow2.0_study" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.VGG13">
+  <component name="RunManager" selected="Python.VAE">
     <configuration name="Lenet5" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MachineLearning" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -92,6 +73,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tensorflow2.0_study/Lenet5.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="VAE" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MachineLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tensorflow2.0_study" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tensorflow2.0_study/VAE.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -122,7 +125,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="conv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="autoencoder" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MachineLearning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -135,29 +138,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tensorflow2.0_study/conv.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="overfit" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="MachineLearning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tensorflow2.0_study" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tensorflow2.0_study/overfit.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tensorflow2.0_study/autoencoder.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -190,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.VAE" />
+        <item itemvalue="Python.autoencoder" />
         <item itemvalue="Python.VGG13" />
         <item itemvalue="Python.tfbase" />
         <item itemvalue="Python.Lenet5" />
-        <item itemvalue="Python.conv" />
-        <item itemvalue="Python.overfit" />
       </list>
     </recent_temporary>
   </component>
@@ -261,6 +242,8 @@
       <workItem from="1579060371521" duration="2860000" />
       <workItem from="1579147663537" duration="1545000" />
       <workItem from="1579259086933" duration="20080000" />
+      <workItem from="1580459382640" duration="763000" />
+      <workItem from="1580469573694" duration="13426000" />
     </task>
     <servers />
   </component>
@@ -274,37 +257,37 @@
     <state x="-2050" y="196" key="FileChooserDialogImpl/-2560.0.1463.885/0.0.2048.1112@-2560.0.1463.885" timestamp="1576251004067" />
     <state x="510" y="194" key="FileChooserDialogImpl/0.0.1463.874@0.0.1463.874" timestamp="1576051359903" />
     <state x="714" y="247" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1575656923265" />
-    <state width="1418" height="260" key="GridCell.Tab.0.bottom" timestamp="1579673285488">
+    <state width="1418" height="260" key="GridCell.Tab.0.bottom" timestamp="1580651066274">
       <screen x="0" y="0" width="1463" height="874" />
     </state>
     <state width="2003" height="357" key="GridCell.Tab.0.bottom/-2560.0.1463.885/0.0.2048.1112@0.0.2048.1112" timestamp="1576868132285" />
-    <state width="1418" height="260" key="GridCell.Tab.0.bottom/0.0.1463.874@0.0.1463.874" timestamp="1579673285488" />
-    <state width="1418" height="260" key="GridCell.Tab.0.center" timestamp="1579673285488">
+    <state width="1418" height="260" key="GridCell.Tab.0.bottom/0.0.1463.874@0.0.1463.874" timestamp="1580651066274" />
+    <state width="1418" height="260" key="GridCell.Tab.0.center" timestamp="1580651066273">
       <screen x="0" y="0" width="1463" height="874" />
     </state>
     <state width="2003" height="357" key="GridCell.Tab.0.center/-2560.0.1463.885/0.0.2048.1112@0.0.2048.1112" timestamp="1576868132285" />
-    <state width="1418" height="260" key="GridCell.Tab.0.center/0.0.1463.874@0.0.1463.874" timestamp="1579673285488" />
-    <state width="1418" height="260" key="GridCell.Tab.0.left" timestamp="1579673285488">
+    <state width="1418" height="260" key="GridCell.Tab.0.center/0.0.1463.874@0.0.1463.874" timestamp="1580651066273" />
+    <state width="1418" height="260" key="GridCell.Tab.0.left" timestamp="1580651066273">
       <screen x="0" y="0" width="1463" height="874" />
     </state>
     <state width="2003" height="357" key="GridCell.Tab.0.left/-2560.0.1463.885/0.0.2048.1112@0.0.2048.1112" timestamp="1576868132285" />
-    <state width="1418" height="260" key="GridCell.Tab.0.left/0.0.1463.874@0.0.1463.874" timestamp="1579673285488" />
-    <state width="1418" height="260" key="GridCell.Tab.0.right" timestamp="1579673285488">
+    <state width="1418" height="260" key="GridCell.Tab.0.left/0.0.1463.874@0.0.1463.874" timestamp="1580651066273" />
+    <state width="1418" height="260" key="GridCell.Tab.0.right" timestamp="1580651066273">
       <screen x="0" y="0" width="1463" height="874" />
     </state>
     <state width="2003" height="357" key="GridCell.Tab.0.right/-2560.0.1463.885/0.0.2048.1112@0.0.2048.1112" timestamp="1576868132285" />
-    <state width="1418" height="260" key="GridCell.Tab.0.right/0.0.1463.874@0.0.1463.874" timestamp="1579673285488" />
+    <state width="1418" height="260" key="GridCell.Tab.0.right/0.0.1463.874@0.0.1463.874" timestamp="1580651066273" />
     <state x="235" y="82" key="SettingsEditor" timestamp="1579107759955">
       <screen x="0" y="0" width="1463" height="874" />
     </state>
     <state x="-2422" y="55" key="SettingsEditor/-2560.0.1463.885/0.0.2048.1112@-2560.0.1463.885" timestamp="1576251016082" />
     <state x="235" y="82" key="SettingsEditor/0.0.1463.874@0.0.1463.874" timestamp="1579107759955" />
-    <state x="426" y="264" key="com.intellij.ide.util.TipDialog" timestamp="1579259156350">
+    <state x="426" y="264" key="com.intellij.ide.util.TipDialog" timestamp="1580469574401">
       <screen x="0" y="0" width="1463" height="874" />
     </state>
     <state x="596" y="336" key="com.intellij.ide.util.TipDialog/-2560.0.1463.885/0.0.2048.1112@0.0.2048.1112" timestamp="1577162041122" />
     <state x="426" y="262" key="com.intellij.ide.util.TipDialog/0.0.1463.868@0.0.1463.868" timestamp="1577965805526" />
-    <state x="426" y="264" key="com.intellij.ide.util.TipDialog/0.0.1463.874@0.0.1463.874" timestamp="1579259156350" />
+    <state x="426" y="264" key="com.intellij.ide.util.TipDialog/0.0.1463.874@0.0.1463.874" timestamp="1580469574401" />
     <state x="426" y="276" key="com.intellij.ide.util.TipDialog/0.0.1463.914@0.0.1463.914" timestamp="1577968134760" />
     <state x="596" y="336" key="com.intellij.ide.util.TipDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1577965282147" />
     <state x="596" y="351" key="com.intellij.ide.util.TipDialog/0.22.2048.1090@0.22.2048.1090" timestamp="1578211374065" />
@@ -317,6 +300,7 @@
     <state x="394" y="184" width="672" height="678" key="search.everywhere.popup/0.0.1463.874@0.0.1463.874" timestamp="1577185778925" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MachineLearning$autoencoder.coverage" NAME="autoencoder Coverage Results" MODIFIED="1580584321088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$Test.coverage" NAME="Test Coverage Results" MODIFIED="1576053750004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$MPG.coverage" NAME="MPG Coverage Results" MODIFIED="1579024686545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$Classification.coverage" NAME="Classification Coverage Results" MODIFIED="1576251112218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
@@ -328,6 +312,7 @@
     <SUITE FILE_PATH="coverage/MachineLearning$tfbase.coverage" NAME="tfbase Coverage Results" MODIFIED="1579667892977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$GPUTest.coverage" NAME="GPUTest Coverage Results" MODIFIED="1576172046207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$Neuralnet.coverage" NAME="Neuralnet Coverage Results" MODIFIED="1577178478051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
+    <SUITE FILE_PATH="coverage/MachineLearning$VAE.coverage" NAME="VAE Coverage Results" MODIFIED="1580651066269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$Lenet5.coverage" NAME="Lenet5 Coverage Results" MODIFIED="1579665920418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$pandatest.coverage" NAME="pandatest Coverage Results" MODIFIED="1578977128358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />
     <SUITE FILE_PATH="coverage/MachineLearning$VGG13.coverage" NAME="VGG13 Coverage Results" MODIFIED="1579673285482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tensorflow2.0_study" />

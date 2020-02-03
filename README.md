@@ -11,6 +11,170 @@
 每天至少三小时，尽量达到四小时以上，少的时间要尽快补上
 		
 		
+## 2020.2.3 fixed
+
+代码部分，继续之前的tensorflow2.0深度学习一书，完成了第十一章和第十二章，分别是循环神经网络和自编码器。学习了各种循环神经网络以及各种自编码器的原理，完成了LSTM/GRU在IMDB数据集上的语义分析，Auto-encoder以及VAE。**代码上传到了github上,在根目录的tensorflow2.0_study文件夹下**。
+
+
+
+书本部分，阅读《统计学习方法》2-4章，**笔记上传到了github上,在根目录的Statistic_Note文件夹下**。
+
+
+
+![](https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/AefvpgiaIPw0J5I0r2dDkx32pMvNKkZlhklpQF5oO5ia0icISqpnMcqrXDsIXPY0XXml6qS3L06mvJwKZVEjv8ylQ/640?wx_fmt=png)
+
+本周主要学习了半监督学习的GNN，GCN，以及无监督学习的Auto-encoders和VAE。
+
+先从相对较简单的Auto-encoder开始。
+
+在编写autoencoder的程序中，发现书中在比较两张图片用的tf.nn.sigmoid_cross_entropy_with_logits作为损失函数。这个函数的作用是计算经sigmoid 函数激活之后的交叉熵。**它适用于分类的类别之间不是相互排斥的场景，即多个标签（如图片中包含狗和猫）。**
+
+与之相对应的是*tf.nn.softmax_cross_entropy_with_logits*，它对于输入的logits先通过softmax函数计算，再计算它们的交叉熵，但是它对交叉熵的计算方式进行了优化，使得结果不至于溢出。
+
+它适用于每个类别相互独立且排斥的情况，一幅图只能属于一类，而不能同时包含一条狗和一只大象。
+
+
+
+自编码器训练较稳定，但是由于损失函数是直接度量重建样本与真实样本的底层特征之间的距离，而不是评价重建样本的逼真度， 因此在某些任务上效果一般，如图片重建，容易出现重建图片边缘模糊，逼真度相对真实图片仍有不小差距。
+
+#### Denoising Auto-Encoder  
+
+了防止神经网络记忆住输入数据的底层特征， Denoising Auto-Encoders 给输入数据添加噪声后，网络需要从𝒙 ̃学习到数据的真实隐藏变量 z，并还原出原始的输入𝒙  添加随机的噪声扰动，如给输入𝒙添加采样自高斯分布的噪声𝜀  
+
+#### Dropout Auto-Encoder  
+
+自编码器网络同样面临过拟合的风险， Dropout Auto-Encoder 通过随机断开网络的连接来减少网络的表达能力，防止过拟合。
+
+### 变分自编码器  （VAE）
+
+  #### 变分推断
+
+对于普通的函数f(x)，我们可以认为f是一个关于x的一个实数算子，其作用是将实数x映射到实数f(x)。那么类比这种模式，假设存在函数算子F，它是关于f(x)的函数算子，可以将f(x)映射成实数F(f(x)) 。对于f(x)我们是通过改变x来求出f(x)的极值，而在变分中这个x会被替换成一个函数y(x)，我们通过改变x来改变y(x),最后使得F(y(x))求得极值。
+
+**变分:**指的是泛函的变分。打个比方，从A点到B点有无数条路径，每一条路径都是一个函数吧，这无数条路径，每一条函数（路径）的长度都是一个数，那你从这无数个路径当中选一个路径最短或者最长的，这就是求泛函的极值问题。有一种老的叫法，函数空间的自变量我们称为**宗量（自变函数），**当**宗量**变化了一点点而导致了**泛函**值变化了多少，这其实就是变分。变分，就是微分在函数空间的拓展，其精神内涵是一致的。求解泛函变分的方法主要有古典变分法、动态规划和最优控制。
+
+![](https://images2017.cnblogs.com/blog/1303172/201801/1303172-20180103023735049-1141958553.png)
+
+对于一类数据x（无论是音频还是图片），对它们进行编码后得到的特征数据往往服从某种分布q(z)，z为隐变量，q(z)这个隐含分布我们无法得知，但是我们可以通过现有数据X来推断出q(z)，即P(z|x)。KL散度是用来衡量两个分布之间的距离，当距离为0时，表示这两个分布完全一致。P(x)不变，那么想让KL(q(z)||P(z|x))越小，即让ELOB越大，反之亦然。因为KL≥0，所以logP(x)≥ELOB。
+
+#### Reparameterization Trick
+
+隐变量 采样自编码器的输出𝑞 ( z| x)，如图 12.11 左所示，编码器输出正态分布的值𝜇和方差𝜎2，解码器的输入采样自𝒩(𝜇, 𝜎2)。由于采样操作的存在，导致梯度传播是不连续的，无法通过梯度下降算法端到端式训练 VAE 网络。  
+
+![](https://img-blog.csdnimg.cn/2020020216201971.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDgyNzE5,size_16,color_FFFFFF,t_70)
+
+它通过 = 𝜇 + 𝜎 ⊙ 𝜀方式采样隐变量 z，  𝜀变量采样自标准正态分布𝒩(0, 𝐼)， 𝜇和𝜎由编码器网络产
+生，通过 = 𝜇 + 𝜎 ⊙ 𝜀即可获得采样后的隐变量 。
+
+
+
+### GNN学习
+
+最早的图神经网络起源于Franco博士的论文, 它的理论基础是**不动点**理论。给定一张图 G，每个结点都有其自己的特征(feature)，连接两个结点的边也有自己的特征。GNN的学习目标是获得每个结点的图感知的隐藏状态 **$h_{v}$**,GNN通过**迭代式更新**所有结点的隐藏状态来实现，在t+1时刻，结点v的隐藏状态按照如下方式更新：
+$$
+𝐡^{t+1}_𝑣=𝑓(𝐱_𝑣,𝐱_𝑐𝑜[𝑣],𝐡^{t}_𝑛𝑒[𝑣] ,𝐱_𝑛𝑒[𝑣]),
+$$
+
+
+$𝐱_𝑐𝑜[𝑣]$指的是与结点v相邻的边的特征，$𝐱_𝑛𝑒[𝑣]$指的是结点v的邻居结点的特征，$𝐡^t_𝑛𝑒[𝑣]$则指邻居结点在t时刻的隐藏状态。f是对所有结点都成立的，是一个全局共享的函数。如何与深度学习结合起来？利用神经网络(Neural Network)来拟合这个复杂函数 f。
+
+我们还需要另外一个函数 g 来描述如何适应下游任务。
+$$
+𝐨_𝑣=𝑔(𝐡_𝑣,𝐱_𝑣)
+$$
+在原论文中，g 又被称为**局部输出函数**(local output function)，与 ff类似，gg也可以由一个神经网络来表达，它也是一个全局共享的函数。
+
+GNN的理论基础是**不动点**(the fixed point)理论，这里的不动点理论专指**巴拿赫不动点定理**(Banach's Fixed Point Theorem)。首先我们用 F表示若干个f堆叠得到的一个函数，也称为**全局更新**函数，那么图上所有结点的状态更新公式可以写成：$𝐇^{𝑡+1}=F(𝐇^𝑡,𝐗)$
+
+不动点定理指的就是，不论$H^0$是什么，只要 $F $ 是个**压缩映射**(contraction map)，$H^0$经过不断迭代都会收敛到某一个固定的点，我们称之为不动点。
+
+为了实现f是压缩映射，我们需要**雅可比矩阵**(Jacobian Matrix)的**惩罚项**(Penalty)来实现。在代数中，有一个定理是: f 为压缩映射的等价条件是 f 的梯度/导数要小于1。根据拉格朗日乘子法，将有约束问题变成带罚项的无约束优化问题，训练的目标可表示成如下形式：
+$$
+J = Loss + \lambda \cdot \max({\frac{||{\partial}FNN||}{||{\partial}\mathbf{h}||}}−c,0), c\in(0,1)
+$$
+其中$λ$是超参数，与其相乘的项即为雅可比矩阵的罚项。
+
+初代GNN，也就是基于循环结构的图神经网络的核心是不动点理论。它的核心观点是**通过结点信息的传播使整张图达到收敛，在其基础上再进行预测**。收敛作为GNN的内核，同样局限了其更广泛的使用，其中最突出的是两个问题：
+
+1. GNN只将边作为一种传播手段，但并未区分不同边的功能。
+2. 如果把GNN应用在*图表示*的场景中，使用不动点理论并不合适。这主要是因为基于不动点的收敛会导致结点之间的隐藏状态间存在较多信息共享，从而导致结点的状态太**过光滑**，并且属于结点自身的特征**信息匮乏**。
+
+
+
+### GCN学习
+
+GCN精妙地设计了一种从图数据中提取特征的方法，从而让我们可以使用这些特征去对图数据进行**节点分类（node classification）、图分类（graph classification）、边预测（link prediction）** ，还可以顺便得到 **图的嵌入表示（graph embedding）**
+
+与CNN相比，在一个图中，**邻居的数量、顺序是无法确定的**，因此无法找到一个和CNN一样的卷积核。但我们仍然希望借助CNN的思想。它利用图的**拉普拉斯矩阵(Laplacian matrix)**导出其频域上的的拉普拉斯算子，再类比频域上的欧式空间中的卷积，导出图卷积的公式。
+
+如何定义非欧几里得结构上的卷积？
+
+定义：
+
+邻接矩阵A
+
+度矩阵D：对角矩阵，表示每一个节点的度
+
+**拉普拉斯矩阵L**：L=D-A,下面公式中的L是经过标准化的
+
+![](https://img-blog.csdnimg.cn/20200202222854420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDgyNzE5,size_16,color_FFFFFF,t_70)
+
+GCN的核心基于拉普拉斯矩阵的谱分解。
+
+拉普拉斯算子Δ 的物理意义是空间二阶导:
+$$
+∆{\exp}^{-2{\pi}ixt}=\frac{{\partial}^2}{{\partial}t^2}{\exp}^{-2{\pi}ixt}={-4{\pi}^2x^2}{\exp}^{-2{\pi}ixt}
+$$
+
+而对应到图中，L就是拉普拉斯算子，其特征向量u即为 $ {\exp}^{-2{\pi}ixt}$
+
+图卷积算子：
+$$
+h^{l+1}_{:,j}={\sigma}(U{\sum}_{i=1}^{d_l}{\Theta}^l_{i,j}U^Th^l_{:,i})
+$$
+
+$$
+{\Theta}^l_{i,j}=g_{\theta}=
+\left[
+ \begin{matrix}
+   {\theta}_1 & ... & 0 \\
+   ... & ... & ... \\
+   0  & ... & {\theta}_N \end{matrix}
+  \right]
+$$
+gθ就是GCN的卷积核，为$U^Tg$,需要计算拉普拉斯矩阵的特征值和特征向量，计算量巨大，在论文 Convolutional neural networks on graphs with fast localized spectral filtering中，应用**切比雪夫多项式(Chebyshev polynomials)**来加速特征矩阵的求解。假设切比雪夫多项式的第k项是 $T_{k}$, 频域卷积核的计算方式如下：
+$$
+g_{\theta}={\sum}_{k=0}^{K-1}{\theta}_{k}T_{k}(\tilde{\Lambda}), \text{where}\ \tilde{\Lambda}=\displaystyle\frac{2\Lambda}{\lambda_{max}}-I_N
+$$
+
+$$
+T_k(x)=2xT_{k-1}(x)-T_{k-2}(x)
+$$
+
+$$
+T_0(x)=1, T_1(x)=x
+$$
+
+
+
+### 论文阅读（Metric Learning with Spectral Graph Convolutions on  Brain Connectivity Networks）
+
+这篇论文通过主要通过GCN的算法进行不规则图片（brain networks）相似度的衡量。已将学习笔记**上传到github中，在根目录的PaperNote文件夹下。**
+
+由于我读过的论文比较少，对许多的背景知识了解的比较浅，比如说Brain Connectivity Graph, fMRI, Brain ROI等等知识点，只能对抽象出来的方法进行一个理解。
+
+这篇论文首先讲了一些传统的相似度学习的方法，比如graph embedding, motif counting等等。我在网上学习了一下graph embedding的算法。**Embedding在数学上是一个函数，将一个空间的点映射到另一个空间，通常是从高维抽象的空间映射到低维的具象空间。**Embeding的意义将高维数据转换到低维利于算法的处理；同时解决one-hot向量长度随样本的变化而变化，以及无法表示两个实体之间的相关性这一问题。其中DeepWalk是一种解决方案，通过在图上随机游走得到节点序列，然后套一个word2vector这样的算法就能得到表示。DeepWalk的进阶则是node2vector，在DeepWalk的基础上更进一步，通过调整随机游走权重的方法使graph embedding的结果在网络的**同质性（homophily）**和**结构性（structural equivalence）**中进行权衡权衡。而同质性用的是BFS,结构性用的是DFS。
+
+接着这个论文展示了自己的网络模型。首先是将原始的fMRI timeseries转化乘labelled graph。用的是k-NN得到平均functional-connectivity matrix。之所以要平均是因为每个图的拉普拉斯矩阵的特征值是不一样的，因此卷积核是独占的。**其实在这里我是有许多不理解的，主要是由于我对背景的不清晰，这个我在之后会补上**。在得到图之后经过两个GCN网络，并将两个结果点乘再经过fc得到最终判断similarity的vector。
+
+接着就是对GCN的介绍。我在前面已经写过，这儿不再赘述。
+
+接着讨论了三种loss函数，分别是hinge loss, global loss，和作者自己改进后的constrained variance loss。hinge loss最为直接，”最大化边缘“分类，并没有对网络输出的variance进行约束；global loss分为两部分，最大化均值的差距，同时最小化标准差，而constrained variance在global loss的基础上增加了一个a作为标准差的门限，只要不大于这个门限都不会被惩罚。
+
+后面的结果部分和讨论部分还没有看，本周看完。
+
+
+
 ## 2020.1.23 fixed
 
 主要进行代码方面的练习，顺便巩固了基础知识。
